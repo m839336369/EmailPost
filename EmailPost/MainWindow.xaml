@@ -1,0 +1,52 @@
+﻿<Window x:Class="EmailPost.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmailPost"
+        mc:Ignorable="d"
+        Title="个性化群发助手" Height="800" Width="400" Closing="Window_Closing">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.6*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ListView x:Name="DataListView" Margin="0,0,0,0" Drop="DataListView_Drop" AllowDrop="True">
+
+            </ListView>
+            <Label x:Name="DragLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF5BB6A9" FontSize="30" Focusable="False" IsHitTestVisible="False">请拖动CSV文件至此</Label>
+        </Grid>
+        <Grid Grid.Row="1"  >
+            <Border  BorderBrush="AliceBlue" CornerRadius="15" BorderThickness ="1"></Border>
+            <TextBox x:Name="Console" Margin="0,0,0,0"  TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom"/>
+        </Grid>
+        <Grid Grid.Row="2" x:Name="ConfigPanel">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Margin="0,10,0,0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="接口地址:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="URL"  HorizontalAlignment="Left" Margin="0,0,0,0" Text="{Binding Path=URL}" TextWrapping="Wrap" VerticalAlignment="Center" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Token:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="Token"  HorizontalAlignment="Left" Margin="12,0,0,0" Text="{Binding Path=Token}" TextWrapping="Wrap" VerticalAlignment="Center" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="随机时间:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="MinTime" HorizontalAlignment="Left" Margin="30,0,0,0" Text="{Binding Path=MinTime}" TextWrapping="Wrap" VerticalAlignment="Center" Width="52" HorizontalContentAlignment="Center" InputScope="Number"/>
+                        <Label Content="-" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="MaxTime" HorizontalAlignment="Left" Margin="0,0,0,0" Text="{Binding Path=MaxTime}" TextWrapping="Wrap" VerticalAlignment="Center" Width="52" HorizontalContentAlignment="Center" InputScope="Number"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button x:Name="ControlButton" Content="开始发送" Height="30" Background="AliceBlue" Click="Control_Click" Margin="0,10,0,0"/>
+                <Button Content="官网直达" Height="30" Background="AliceBlue"  Margin="0,10,0,0" Click="Button_Click"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+
+</Window>
