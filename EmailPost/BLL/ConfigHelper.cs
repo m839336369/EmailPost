@@ -38,12 +38,14 @@ namespace EmailPost.BLL
             string sPath = Environment.CurrentDirectory;
             //将两个字符串合并到一个路径中。
             sPath = Path.Combine(Environment.CurrentDirectory, "Config.json");
-            if (File.Exists(sPath))
+            try
             {
-                File.Delete(sPath);
+                File.WriteAllText(sPath, json);
             }
-            File.WriteAllText(sPath, json);
+            catch(Exception e)
+            {
+                //ConsoleHelper.WriteLine("程序权限不足，下次启动请以管理员身份启动");
+            }
         }
-
     }
 }

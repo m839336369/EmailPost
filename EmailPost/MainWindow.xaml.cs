@@ -32,11 +32,17 @@ namespace EmailPost
             Core.MainWindow = this;
             ConfigHelper.Init();
             ConfigPanel.DataContext = Core.Config;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
         private void Control_Click(object sender, RoutedEventArgs e)
         {
-            if(Core.PostThread == null)
+            if (URL.Text.Equals(""))
+            {
+                ConsoleHelper.WriteLine("请输入接口地址");
+                return;
+            }
+            else if(Core.PostThread == null)
             {
                 ConsoleHelper.WriteLine("请导入数据");
                 return;
@@ -113,6 +119,7 @@ namespace EmailPost
                 DataListView.ItemsSource = dt.DefaultView;
                 DataListView.DataContext = dt;
                 DragLabel.Visibility = Visibility.Hidden;
+                TipLabel.Visibility = Visibility.Hidden;
                 Core.PostThread = new Thread(() => {
                     Posting(dt);
                 });
@@ -128,8 +135,8 @@ namespace EmailPost
         public static DataTable LoadData(string filePath)
         {
             DataTable dt = new DataTable();
-            FileStream fs = new FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
-            StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(fs, Encoding.GetEncoding("gb2312"));
             //string fileContent = sr.ReadToEnd();
             //encoding = sr.CurrentEncoding;
             //记录每次读取的一行记录
@@ -144,9 +151,10 @@ namespace EmailPost
             //逐行读取CSV中的数据
             while ((strLine = sr.ReadLine()) != null)
             {
-                //strLine = Common.ConvertStringUTF8(strLine, encoding);
+                ConsoleHelper.WriteLine(strLine);
+                strLine = Encoding.UTF8.GetString(Encoding.Convert(Encoding.GetEncoding("gb2312"), Encoding.UTF8, Encoding.GetEncoding("gb2312").GetBytes(strLine)));
                 //strLine = Common.ConvertStringUTF8(strLine);
-
+                ConsoleHelper.WriteLine(strLine);
                 if (IsFirst == true)
                 {
                     tableHead = strLine.Split(',');
@@ -171,8 +179,6 @@ namespace EmailPost
                     dt.Rows.Add(dr);
                 }
             }
-
-
             sr.Close();
             fs.Close();
             return dt;

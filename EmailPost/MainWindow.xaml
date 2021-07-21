@@ -19,6 +19,7 @@
 
             </ListView>
             <Label x:Name="DragLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF5BB6A9" FontSize="30" Focusable="False" IsHitTestVisible="False">请拖动CSV文件至此</Label>
+            <Label x:Name="TipLabel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FF5BB6A9" FontSize="15" Focusable="False" IsHitTestVisible="False">请完成编辑后，关闭表格文件再拖入</Label>
         </Grid>
         <Grid Grid.Row="1"  >
             <Border  BorderBrush="AliceBlue" CornerRadius="15" BorderThickness ="1"></Border>
@@ -29,17 +30,18 @@
                 <StackPanel Margin="0,10,0,0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="接口地址:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="URL"  HorizontalAlignment="Left" Margin="0,0,0,0" Text="{Binding Path=URL}" TextWrapping="Wrap" VerticalAlignment="Center" Width="200"/>
+                        <TextBox x:Name="URL"  HorizontalAlignment="Left"  HorizontalContentAlignment="Center"  Margin="0,0,0,0" Text="{Binding Path=URL}" TextWrapping="Wrap" VerticalAlignment="Center" Width="300" Height="22"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Token:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="Token"  HorizontalAlignment="Left" Margin="12,0,0,0" Text="{Binding Path=Token}" TextWrapping="Wrap" VerticalAlignment="Center" Width="200"/>
+                        <TextBox x:Name="Token"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="12,0,0,0" Text="{Binding Path=Token}" TextWrapping="Wrap" VerticalAlignment="Center" Width="300" Height="22"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="随机时间:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="MinTime" HorizontalAlignment="Left" Margin="30,0,0,0" Text="{Binding Path=MinTime}" TextWrapping="Wrap" VerticalAlignment="Center" Width="52" HorizontalContentAlignment="Center" InputScope="Number"/>
+                        <TextBox x:Name="MinTime" HorizontalAlignment="Left" Margin="0,0,0,0" Text="{Binding Path=MinTime}" TextWrapping="Wrap" VerticalAlignment="Center" Width="52" HorizontalContentAlignment="Center" InputScope="Number" />
                         <Label Content="-" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="MaxTime" HorizontalAlignment="Left" Margin="0,0,0,0" Text="{Binding Path=MaxTime}" TextWrapping="Wrap" VerticalAlignment="Center" Width="52" HorizontalContentAlignment="Center" InputScope="Number"/>
+                        <TextBox x:Name="MaxTime" HorizontalAlignment="Left"   Margin="0,0,0,0" Text="{Binding Path=MaxTime}" TextWrapping="Wrap" VerticalAlignment="Center" Width="52" HorizontalContentAlignment="Center" InputScope="Number"  />
+                        <Label Content="秒" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
                 <Button x:Name="ControlButton" Content="开始发送" Height="30" Background="AliceBlue" Click="Control_Click" Margin="0,10,0,0"/>

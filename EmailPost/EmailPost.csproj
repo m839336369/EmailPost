@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>awc9g-jk9t0-001.ico</ApplicationIcon>
-    <StartupObject />
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
