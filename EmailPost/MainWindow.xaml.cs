@@ -64,28 +64,35 @@ namespace EmailPost
         {
             int cnt = 0;
             Random random = new Random();
-            foreach (DataRow row in dt.Rows)
+            try
             {
-                if(isRunning == false)
+                foreach (DataRow row in dt.Rows)
                 {
-                    ConsoleHelper.WriteLine($"Post已停止");
-                    break;
-                }
-                if (row.Field<string>("状态") == null)
-                {
-                    PostData data = new PostData();
-                    data.Token = Core.Config.Token;
-                    data.To = row.Field<string>("mail");
-                    data.dynamicParams = new List<NameValue>();
-                    foreach (DataColumn column in dt.Columns)
+                    if (isRunning == false)
                     {
-                        data.dynamicParams.Add(new NameValue(column.ColumnName, row.Field<string>(column.ColumnName)));
+                        ConsoleHelper.WriteLine($"Post已停止");
+                        break;
                     }
-                    string a = Post.EmailPost(Core.Config.URL, data);
-                    row.SetField("状态", "√");
-                    ++cnt;
-                    Thread.Sleep(random.Next(Core.Config.MinTime*1000, Core.Config.MaxTime*1000));
+                    if (row.Field<string>("状态") == null)
+                    {
+                        PostData data = new PostData();
+                        data.Token = Core.Config.Token;
+                        data.To = row.Field<string>("mail");
+                        data.dynamicParams = new List<NameValue>();
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            data.dynamicParams.Add(new NameValue(column.ColumnName, row.Field<string>(column.ColumnName)));
+                        }
+                        string a = Post.EmailPost(Core.Config.URL, data);
+                        row.SetField("状态", "√");
+                        ++cnt;
+                        Thread.Sleep(random.Next(Core.Config.MinTime * 1000, Core.Config.MaxTime * 1000));
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                ConsoleHelper.WriteLine("Post失败，请检查Token、接口地址、文本格式");
             }
             Core.MainWindow.Dispatcher.Invoke(() =>
             {
@@ -151,10 +158,10 @@ namespace EmailPost
             //逐行读取CSV中的数据
             while ((strLine = sr.ReadLine()) != null)
             {
-                ConsoleHelper.WriteLine(strLine);
+                //ConsoleHelper.WriteLine(strLine);
                 strLine = Encoding.UTF8.GetString(Encoding.Convert(Encoding.GetEncoding("gb2312"), Encoding.UTF8, Encoding.GetEncoding("gb2312").GetBytes(strLine)));
                 //strLine = Common.ConvertStringUTF8(strLine);
-                ConsoleHelper.WriteLine(strLine);
+                //ConsoleHelper.WriteLine(strLine);
                 if (IsFirst == true)
                 {
                     tableHead = strLine.Split(',');
