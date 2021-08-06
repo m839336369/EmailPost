@@ -84,7 +84,12 @@ namespace EmailPost
                             data.dynamicParams.Add(new NameValue(column.ColumnName, row.Field<string>(column.ColumnName)));
                         }
                         string a = Post.EmailPost(Core.Config.URL, data);
-                        row.SetField("状态", "√");
+                        if(!a.Contains("推送成功"))
+                        {
+                            row.SetField("状态", "X");
+                            ConsoleHelper.WriteLine("Post失败，请检查Token、接口地址、文本格式");
+                        }
+                        else row.SetField("状态", "√");
                         ++cnt;
                         Thread.Sleep(random.Next(Core.Config.MinTime * 1000, Core.Config.MaxTime * 1000));
                     }
@@ -92,6 +97,7 @@ namespace EmailPost
             }
             catch (Exception e)
             {
+                ConsoleHelper.WriteLine(e.Message);
                 ConsoleHelper.WriteLine("Post失败，请检查Token、接口地址、文本格式");
             }
             Core.MainWindow.Dispatcher.Invoke(() =>

@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.6*"></RowDefinition>
+            <RowDefinition Height="1.3*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <ListView x:Name="DataListView" Margin="0,0,0,0" Drop="DataListView_Drop" AllowDrop="True">
@@ -45,7 +45,6 @@
                     </StackPanel>
                 </StackPanel>
                 <Button x:Name="ControlButton" Content="开始发送" Height="30" Background="AliceBlue" Click="Control_Click" Margin="0,10,0,0"/>
-                <Button Content="官网直达" Height="30" Background="AliceBlue"  Margin="0,10,0,0" Click="Button_Click"/>
             </StackPanel>
         </Grid>
 
